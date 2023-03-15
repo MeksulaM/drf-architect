@@ -4,11 +4,13 @@ import sys
 import argparse
 import subprocess
 
+from os.path import join, isfile, isdir
+
 
 FILENAME = os.path.basename(__file__)
 DEFAULT_PROJECT_NAME = "base"
-VENV_PATH = os.path.join(".", ".venv")
-PYTHON_PATH = os.path.join(VENV_PATH, "Scripts", "python.exe")
+VENV_PATH = join(".", ".venv")
+PYTHON_PATH = join(VENV_PATH, "Scripts", "python.exe")
 DEFAULT_PACKAGES = [
     "django",
     "djangorestframework",
@@ -19,7 +21,7 @@ DEFAULT_PACKAGES = [
 COMMANDS = {
     "list": {
         "description": "Prints all default packages to install with running script.",
-        "example": f"python {FILENAME} libraries",
+        "example": f"python {FILENAME} list",
     },
     "remove": {
         "description": "Allows to exclude one or more packages from installation.",
@@ -75,7 +77,7 @@ def install_packages(packages: list):
 
 def make_requirements_file():
     message = "\t-The requirements file has been created."
-    if os.path.isfile(".\\requirements.txt"):
+    if isfile(join(".", "requirements.txt")):
         message = "\t-The requirements file has been updated."
 
     with open("requirements.txt", "w") as file:
@@ -115,7 +117,7 @@ if __name__ == "__main__":
     project_name = args.name if args.name else DEFAULT_PROJECT_NAME
 
     print("\n1. Virtual environment:")
-    if not os.path.isdir(VENV_PATH):
+    if not isdir(VENV_PATH):
         create_venv()
     else:
         print("\t-The virtual environment already exists in the current directory.")
@@ -127,7 +129,7 @@ if __name__ == "__main__":
     make_requirements_file()
 
     print("\n4. Starting Django project:")
-    if not os.path.isfile(".\\manage.py") or not os.path.isdir(f".\\{project_name}"):
+    if not isfile(join(".", "manage.py")) or not isdir(join(".", project_name)):
         start_django_project(project_name)
     else:
         print("\t-The Django project already exists in the current directory.\n")
