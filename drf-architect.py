@@ -60,6 +60,16 @@ def validate_remove(packages: list):
             sys.exit()
 
 
+def validate_project_name(name: str):
+    if not name.isidentifier():
+        print(f"\nERROR: '{name}' is not a valid django project name.")
+        print("A valid django project name can only contain:")
+        print("\t-the uppercase and lowercase letters A through Z,")
+        print("\t-the underscore _,")
+        print("\t-the digits 0 through 9 (except for the first character).")
+        sys.exit()
+
+
 def print_help():
     print("\nList of available commands:")
     for command, command_info in COMMANDS.items():
@@ -123,7 +133,11 @@ if __name__ == "__main__":
         packages = DEFAULT_PACKAGES
     packages = packages + args.add if args.add else packages
 
-    project_name = args.name if args.name else DEFAULT_PROJECT_NAME
+    if args.name:
+        validate_project_name(args.name)
+        project_name = args.name
+    else:
+        project_name = DEFAULT_PROJECT_NAME
 
     print("\n1. Virtual environment:")
     if not isdir(VENV_PATH):
