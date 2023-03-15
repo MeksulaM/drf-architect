@@ -9,8 +9,6 @@ from os.path import join, isfile, isdir
 
 FILENAME = os.path.basename(__file__)
 DEFAULT_PROJECT_NAME = "base"
-VENV_PATH = join(".", ".venv")
-PYTHON_PATH = join(VENV_PATH, "Scripts", "python.exe")
 DEFAULT_PACKAGES = [
     "django",
     "djangorestframework",
@@ -35,7 +33,15 @@ COMMANDS = {
         "description": "Allows to provide custom django project name.",
         "example": f"python {FILENAME} -name core",
     },
+    "dir": {
+        "description": "Creates new directory where all files will be placed.",
+        "example": f"python {FILENAME} -name blogAPI",
+    },
 }
+
+cwd = "."
+venv_path = join(cwd, ".venv")
+python_path = join(venv_path, "Scripts", "python.exe")
 
 
 def get_args():
@@ -45,6 +51,7 @@ def get_args():
     parser.add_argument("-remove", type=str, nargs="+")
     parser.add_argument("-add", type=str, nargs="+")
     parser.add_argument("-name", type=str)
+    parser.add_argument("-dir", type=str)
 
     subparser.add_parser("help")
     subparser.add_parser("list")
@@ -66,7 +73,25 @@ def validate_project_name(name: str):
         print("A valid django project name can only contain:")
         print("\t-the uppercase and lowercase letters A through Z,")
         print("\t-the underscore _,")
-        print("\t-the digits 0 through 9 (except for the first character).")
+        print("\t-the digits 0 through 9 (except for the first character).\n")
+        sys.exit()
+
+    if isdir(join(cwd, name)):
+        print(f"\nERROR: The '{name}' project already exists in this directory.\n")
+        sys.exit()
+
+
+def validate_directory_name(name: str):
+    forbidden = ["/", "\\", ":", "*", "?", '"', "<", ">", "|"]
+    for char in name:
+        if char in forbidden:
+            print("\nERROR: Provided directory name contains forbidden characters.")
+            print("Directory name cannot contain the following characters:")
+            print(*forbidden, end="\n\n")
+            sys.exit()
+
+    if isdir(join(cwd, name)):
+        print(f"\nERROR: The '{name}' directory already exists.\n")
         sys.exit()
 
 
@@ -84,31 +109,30 @@ def print_packages(packages: list):
 
 
 def create_venv():
-    venv.create(VENV_PATH, with_pip=True)
-    print(f"\t-Virtual environment has been created at {VENV_PATH}")
+    venv.create(venv_path, with_pip=True)
+    print(f"\t-Virtual environment has been created at {venv_path}")
 
 
 def install_packages(packages: list):
     for package in packages:
-        subprocess.run([PYTHON_PATH, "-m", "pip", "install", package])
+        subprocess.run([python_path, "-m", "pip", "install", package])
 
 
 def make_requirements_file():
-    message = "\t-The requirements file has been created."
-    if isfile(join(".", "requirements.txt")):
-        message = "\t-The requirements file has been updated."
-
-    with open("requirements.txt", "w") as file:
+    with open(join(cwd, "requirements.txt"), "w") as file:
         subprocess.run(
-            [PYTHON_PATH, "-m", "pip", "freeze"],
+            [python_path, "-m", "pip", "freeze"],
             stdout=file,
             check=True,
         )
-    print(message)
+    print("\t-The requirements file has been created.")
 
 
 def start_django_project(project_name: str):
-    subprocess.run([PYTHON_PATH, "-m", "django", "startproject", project_name, "."])
+    subprocess.run(
+        [python_path, "-m", "django", "startproject", project_name, "."],
+        cwd=cwd,
+    )
     print(f"\t-'{project_name}' django project has been created.\n")
 
 
@@ -134,16 +158,23 @@ if __name__ == "__main__":
     packages = packages + args.add if args.add else packages
 
     if args.name:
-        validate_project_name(args.name)
         project_name = args.name
     else:
         project_name = DEFAULT_PROJECT_NAME
+    validate_project_name(project_name)
+
+    if args.dir:
+        validate_directory_name(args.dir)
+        cwd = join(cwd, args.dir)
+        venv_path = join(cwd, ".venv")
+        python_path = join(venv_path, "Scripts", "python.exe")
 
     print("\n1. Virtual environment:")
-    if not isdir(VENV_PATH):
+    if not isdir(venv_path):
         create_venv()
     else:
         print("\t-The virtual environment already exists in the current directory.")
+        sys.exit()
 
     print("\n2. Installing packages:")
     install_packages(packages)
