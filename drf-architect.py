@@ -52,6 +52,14 @@ def get_args():
     return parser.parse_args()
 
 
+def validate_remove(packages: list):
+    for package in packages:
+        if package not in DEFAULT_PACKAGES:
+            print(f"\nERROR: '{package}' is not in the default packages.")
+            print("Perhaps you made a typo.\n")
+            sys.exit()
+
+
 def print_help():
     print("\nList of available commands:")
     for command, command_info in COMMANDS.items():
@@ -107,6 +115,7 @@ if __name__ == "__main__":
         sys.exit()
 
     if args.remove:
+        validate_remove(args.remove)
         packages = [
             package for package in DEFAULT_PACKAGES if package not in args.remove
         ]
