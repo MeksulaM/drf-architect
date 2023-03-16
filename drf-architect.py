@@ -3,8 +3,7 @@ import os
 import sys
 import argparse
 import subprocess
-
-from os.path import join, isfile, isdir
+from os.path import join, isdir
 
 
 FILENAME = os.path.basename(__file__)
@@ -109,6 +108,12 @@ def print_packages(packages: list):
 
 
 def create_venv():
+    if isdir(venv_path):
+        print(
+            "\nERROR: The virtual environment already exists in the current directory.\n"
+        )
+        sys.exit()
+
     venv.create(venv_path, with_pip=True)
     print(f"\t-Virtual environment has been created at {venv_path}")
 
@@ -170,11 +175,7 @@ if __name__ == "__main__":
         python_path = join(venv_path, "Scripts", "python.exe")
 
     print("\n1. Virtual environment:")
-    if not isdir(venv_path):
-        create_venv()
-    else:
-        print("\t-The virtual environment already exists in the current directory.")
-        sys.exit()
+    create_venv()
 
     print("\n2. Installing packages:")
     install_packages(packages)
@@ -183,7 +184,4 @@ if __name__ == "__main__":
     make_requirements_file()
 
     print("\n4. Starting Django project:")
-    if not isfile(join(".", "manage.py")) or not isdir(join(".", project_name)):
-        start_django_project(project_name)
-    else:
-        print("\t-The Django project already exists in the current directory.\n")
+    start_django_project(project_name)
