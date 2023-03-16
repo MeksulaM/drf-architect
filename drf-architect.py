@@ -15,7 +15,7 @@ DEFAULT_PACKAGES = [
     "django-cors-headers",
     "django-filter",
 ]
-COMMANDS = {
+COMMAND_LINE_ARGS = {
     "list": {
         "description": "Prints all default packages to install with running script.",
         "example": f"python {FILENAME} list",
@@ -43,7 +43,13 @@ venv_path = join(cwd, ".venv")
 python_path = join(venv_path, "Scripts", "python.exe")
 
 
-def get_args():
+def get_args() -> argparse.Namespace:
+    """
+    Parse command-line arguments to script.
+
+    Returns:
+        `argparse.Namespace` object containing the parsed arguments.
+    """
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="command")
 
@@ -58,7 +64,16 @@ def get_args():
     return parser.parse_args()
 
 
-def validate_remove(packages: list):
+def validate_remove(packages: list) -> None:
+    """
+    Check if provided packages are in `DEFAULT_PACKAGES`
+
+    Args:
+        packages (`list`): List of packages to exclude from `DEFAULT_PACKAGES`
+
+    Raises:
+        `SystemExit`: If package is not present in `DEFAULT_PACKAGES`.
+    """
     for package in packages:
         if package not in DEFAULT_PACKAGES:
             print(f"\nERROR: '{package}' is not in the default packages.")
@@ -66,7 +81,16 @@ def validate_remove(packages: list):
             sys.exit()
 
 
-def validate_project_name(name: str):
+def validate_project_name(name: str) -> None:
+    """
+    Check if provided name is a valid identifier and not already taken.
+
+    Args:
+        name (`str`): The name of the Django project to validate.
+
+    Raises:
+        `SystemExit`: If described above conditions have not been met
+    """
     if not name.isidentifier():
         print(f"\nERROR: '{name}' is not a valid django project name.")
         print("A valid django project name can only contain:")
@@ -80,7 +104,16 @@ def validate_project_name(name: str):
         sys.exit()
 
 
-def validate_directory_name(name: str):
+def validate_directory_name(name: str) -> None:
+    """
+    Check if provided directory name is valid and not already taken.
+
+    Args:
+        name (`str`): The name of the directory to validate.
+
+    Raises:
+        `SystemExit`: If described above conditions have not been met.
+    """
     forbidden = ["/", "\\", ":", "*", "?", '"', "<", ">", "|"]
     for char in name:
         if char in forbidden:
@@ -94,20 +127,32 @@ def validate_directory_name(name: str):
         sys.exit()
 
 
-def print_help():
+def print_help() -> None:
+    """
+    Print all available command-line arguments with their descriptions.
+    """
     print("\nList of available commands:")
-    for command, command_info in COMMANDS.items():
-        print(f"\t-{command}: {command_info['description']}")
-        print(f"\texample: {command_info['example']}\n")
+    for arg, arg_info in COMMAND_LINE_ARGS.items():
+        print(f"\t-{arg}: {arg_info['description']}")
+        print(f"\texample: {arg_info['example']}\n")
 
 
-def print_packages(packages: list):
+def print_packages() -> None:
+    """
+    Print all packages from `DEFAULT_PACKAGES`.
+    """
     print("\nDefault packages:")
-    for package in packages:
+    for package in DEFAULT_PACKAGES:
         print(f"\t-{package}")
 
 
-def create_venv():
+def create_venv() -> None:
+    """
+    Create virtual environment in provided directory.
+
+    Raises:
+        `SystemExit`: If there is already virtual environment created.
+    """
     if isdir(venv_path):
         print(
             "\nERROR: The virtual environment already exists in the current directory.\n"
@@ -118,12 +163,21 @@ def create_venv():
     print(f"\t-Virtual environment has been created at {venv_path}")
 
 
-def install_packages(packages: list):
+def install_packages(packages: list) -> None:
+    """
+    Install provided packages in venv using pip.
+
+    Args:
+        packages (`list`): A list of packages to install.
+    """
     for package in packages:
         subprocess.run([python_path, "-m", "pip", "install", package])
 
 
-def make_requirements_file():
+def make_requirements_file() -> None:
+    """
+    Create `requirements.txt` file containing output of the `pip freeze`.
+    """
     with open(join(cwd, "requirements.txt"), "w") as file:
         subprocess.run(
             [python_path, "-m", "pip", "freeze"],
@@ -133,7 +187,13 @@ def make_requirements_file():
     print("\t-The requirements file has been created.")
 
 
-def start_django_project(project_name: str):
+def start_django_project(project_name: str) -> None:
+    """
+    Execute `django startproject` command in desired directory.
+
+    Args:
+        project_name (`str`): A name of the django project.
+    """
     subprocess.run(
         [python_path, "-m", "django", "startproject", project_name, "."],
         cwd=cwd,
@@ -150,7 +210,7 @@ if __name__ == "__main__":
         sys.exit()
 
     elif args.command == "list":
-        print_packages(DEFAULT_PACKAGES)
+        print_packages()
         sys.exit()
 
     if args.remove:
