@@ -18,7 +18,6 @@ Currently, script works only on Windows OS.
 `drf_architect.py` enables users to customize several default settings, as they are described in<br>
 [**Usage**](#usage) section.
 
-<br>
 
 ## **Prerequisites**
 
@@ -28,11 +27,8 @@ Currently, script works only on Windows OS.
 I recommend using currently supported versions (3.7 and above).  
 Versions below 3.6 will not work because script contains f-strings.
 
-<br>
 
 ## **Usage**
-
-<br>
 
 ### **Run with default settings**
 
@@ -61,8 +57,6 @@ Script will create new DRF project with the following structure:
     └── drf_architect.py
 ```
 
-<br>
-
 ### **Run with custom settings**
 
 <br>
@@ -89,7 +83,6 @@ List of available commands:
         example: python drf_architect.py -name blogAPI
 ```
 
-<br>
 
 #### **`list`**
 
@@ -111,7 +104,6 @@ Default packages:
 **Note**: If you found default list of packages not meeting your needs, feel free to modify `DEFAULT_PACKAGES`  
 list in your copy of `drf_architect.py` file.
 
-<br>
 
 #### **`-remove`** and **`-add`**
 
@@ -132,8 +124,6 @@ you will get the following error:
 ERROR: 'django-fter' is not in the default packages.
 Perhaps you made a typo.
 ```
-
-<br>
 
 #### **`-name`**
 
@@ -166,8 +156,6 @@ A valid Django project name can only contain:
         -the underscore _,
         -the digits 0 through 9 (except for the first character).
 ```
-
-<br>
 
 #### **`-dir`**
 
