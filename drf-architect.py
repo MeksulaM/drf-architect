@@ -38,9 +38,15 @@ COMMAND_LINE_ARGS = {
     },
 }
 
+o_system = sys.platform
+
 cwd = "."
 venv_path = join(cwd, ".venv")
-python_path = join(venv_path, "Scripts", "python.exe")
+python_path = join(
+    venv_path,
+    "Scripts" if o_system.startswith("win") else "bin",
+    "python",
+)
 
 
 def get_args() -> argparse.Namespace:
@@ -195,8 +201,7 @@ def start_django_project(project_name: str) -> None:
         project_name (`str`): A name of the django project.
     """
     subprocess.run(
-        [python_path, "-m", "django", "startproject", project_name, "."],
-        cwd=cwd,
+        [python_path, "-m", "django", "startproject", project_name, cwd],
     )
     print(f"\t-'{project_name}' django project has been created.\n")
 
@@ -232,7 +237,11 @@ if __name__ == "__main__":
         validate_directory_name(args.dir)
         cwd = join(cwd, args.dir)
         venv_path = join(cwd, ".venv")
-        python_path = join(venv_path, "Scripts", "python.exe")
+        python_path = join(
+            venv_path,
+            "Scripts" if o_system.startswith("win") else "bin",
+            "python.exe",
+        )
 
     print("\n1. Virtual environment:")
     create_venv()
