@@ -22,7 +22,7 @@ COMMAND_LINE_ARGS = {
     },
     "remove": {
         "description": "Allows to exclude one or more packages from installation.",
-        "example": f"python {FILENAME} -exclude django-filter",
+        "example": f"python {FILENAME} -remove django-filter",
     },
     "add": {
         "description": "Allows to add one or more packages to installation.",
@@ -34,7 +34,7 @@ COMMAND_LINE_ARGS = {
     },
     "dir": {
         "description": "Creates new directory where all files will be placed.",
-        "example": f"python {FILENAME} -name blogAPI",
+        "example": f"python {FILENAME} -dir blogAPI",
     },
 }
 
@@ -45,6 +45,7 @@ cwd = "."
 venv_path = join(cwd, ".venv")
 python_path = join(
     venv_path,
+    # path to python depends on operating system
     "Scripts" if o_system.startswith("win") else "bin",
     "python",
 )
@@ -241,18 +242,19 @@ if __name__ == "__main__":
 
         python_path = join(
             venv_path,
+            # path to python depends on operating system
             "Scripts" if o_system.startswith("win") else "bin",
-            "python.exe",
+            "python",
         )
 
-    print("\n1. Virtual environment:")
+    print("\n1. Virtual environment...")
     create_venv()
 
-    print("\n2. Installing packages:")
+    print("\n2. Installing packages...")
     install_packages(packages)
 
-    print("\n3. Creating requirements file:")
+    print("\n3. Creating requirements file...")
     make_requirements_file()
 
-    print("\n4. Starting Django project:")
+    print("\n4. Starting Django project...")
     start_django_project(project_name)
