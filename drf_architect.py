@@ -38,6 +38,7 @@ COMMAND_LINE_ARGS = {
     },
 }
 
+
 o_system = sys.platform
 
 cwd = "."
@@ -237,6 +238,7 @@ if __name__ == "__main__":
         validate_directory_name(args.dir)
         cwd = join(cwd, args.dir)
         venv_path = join(cwd, ".venv")
+
         python_path = join(
             venv_path,
             "Scripts" if o_system.startswith("win") else "bin",
