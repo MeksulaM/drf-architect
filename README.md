@@ -13,20 +13,19 @@ When run, script does the following tasks:
 3. Creates `requirements.txt` file
 4. Starts new Django project
 
-Currently, script works only on Windows OS.
+`drf_architect.py` works correctly on most popular operating systems, including:
 
-`drf_architect.py` enables users to customize several default settings, as they are described in<br>
-[**Usage**](#usage) section.
-
+-   [x] Windows
+-   [x] Linux
+-   [x] macOS
 
 ## **Prerequisites**
 
 <br>
 -   Python 3
 
-I recommend using currently supported versions (3.7 and above).  
+It is recommended to use currently supported versions of Python (3.7 and above).  
 Versions below 3.6 will not work because script contains f-strings.
-
 
 ## **Usage**
 
@@ -80,15 +79,14 @@ List of available commands:
         example: python drf_architect.py -name core
 
         -dir: Creates new directory where all files will be placed.
-        example: python drf_architect.py -name blogAPI
+        example: python drf_architect.py -dir blogAPI
 ```
-
 
 #### **`list`**
 
 <br>
 
-You can view default packages without the need of going through code:
+Default packages list can be accessed without the need of going through code:
 
 ```
 > python drf_architect.py list
@@ -101,22 +99,18 @@ Default packages:
         -django-filter
 ```
 
-**Note**: If you found default list of packages not meeting your needs, feel free to modify `DEFAULT_PACKAGES`  
-list in your copy of `drf_architect.py` file.
-
-
 #### **`-remove`** and **`-add`**
 
 <br>
 
-You can alter list of packages without modifying script code:
+List of packages can be altered without modifying script code:
 
 ```
 > python drf_architect.py -remove django-filters djangorestframework -add matplotlib
 ```
 
-**Note:** If provided package to remove is not present in default packages list,  
-you will get the following error:
+**Note:** If package provided in remove argument is not present in default packages list,
+the following error will occur:
 
 ```
 > python drf_architect.py -remove django-fter
@@ -130,7 +124,7 @@ Perhaps you made a typo.
 <br>
 
 As it was shown [here](#run-with-default-settings), the default Django project name is "base".  
-You can change it by `-name` command:
+It can be changed by `-name` command:
 
 ```
 > python drf_architect.py -name core
@@ -144,8 +138,8 @@ You can change it by `-name` command:
 ERROR: The 'core' project already exists in this directory.
 ```
 
-**Note:** Script will validate your custom project name. If you will provide not valid Django project  
-name, you will get the following error:
+**Note:** Script will validate custom project name. In case of not valid Django project name,
+the following error will occur:
 
 ```
 > python drf_architect.py -name 1_core
@@ -161,18 +155,18 @@ A valid Django project name can only contain:
 
 <br>
 
-As it was shown [here](#run-with-default-settings), the Django project will appear in the same directory where `drf_architect.py` file  
-is located.
+As it was shown [here](#run-with-default-settings), the Django project will
+appear in the same directory where `drf_architect.py` file is located.
 
-You can change that by providing `-dir` argument. I recommend creating general directory for DRF projects  
-and placing `drf_architect.py` file in that directory:
+It can be changed by providing `-dir` argument. It is recommended to create
+general directory for DRF projects and placing `drf_architect.py` file in that directory:
 
 ```
 └── drf_projects
     └── drf_architect.py
 ```
 
-Then you can create multiple DRF projects in your general directory:
+Then multiple DRF projects can be created in general directory:
 
 ```
 > python drf_architect.py -dir todoAPI
@@ -206,8 +200,8 @@ The above commands will create the following directory structure:
     └── drf_architect.py
 ```
 
-**Note**: You must provide valid directory name.  
-Otherwise, you will get the following error:
+**Note**: In case of not valid directory name,
+the following error will occur:
 
 ```
 > python drf_architect.py -dir ?todoAPI
