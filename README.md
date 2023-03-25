@@ -24,6 +24,7 @@ When run, script does the following tasks:
 <br>
 -   Python 3
 
+<br>
 It is recommended to use currently supported versions of Python (3.7 and above).  
 Versions below 3.6 will not work because script contains f-strings.
 
@@ -36,8 +37,8 @@ Versions below 3.6 will not work because script contains f-strings.
 Download the `drf_architect.py` file and place it into your future project directory.  
 Then, run script from the command line:
 
-```
-path\to\project\my_project> python drf_architect.py
+```console
+$ python drf_architect.py
 ```
 
 Script will create new DRF project with the following structure:
@@ -62,8 +63,8 @@ Script will create new DRF project with the following structure:
 
 There are several command-line arguments available, as described in script `help` message:
 
-```
-> python drf_architect.py help
+```console
+$ python drf_architect.py help
 
 List of available commands:
         list: Prints all default packages to install with running script.
@@ -88,8 +89,8 @@ List of available commands:
 
 Default packages list can be accessed without the need of going through code:
 
-```
-> python drf_architect.py list
+```console
+$ python drf_architect.py list
 
 Default packages:
         -django
@@ -105,15 +106,15 @@ Default packages:
 
 List of packages can be altered without modifying script code:
 
-```
-> python drf_architect.py -remove django-filters djangorestframework -add matplotlib
+```console
+$ python drf_architect.py -remove django-filters djangorestframework -add matplotlib
 ```
 
 **Note:** If package provided in remove argument is not present in default packages list,
 the following error will occur:
 
-```
-> python drf_architect.py -remove django-fter
+```console
+$ python drf_architect.py -remove django-fter
 
 ERROR: 'django-fter' is not in the default packages.
 Perhaps you made a typo.
@@ -126,14 +127,14 @@ Perhaps you made a typo.
 As it was shown [here](#run-with-default-settings), the default Django project name is "base".  
 It can be changed by `-name` command:
 
-```
-> python drf_architect.py -name core
+```console
+$ python drf_architect.py -name core
 ```
 
 **Note:** Script will not allow to create Django project with already existing name:
 
-```
-> python drf_architect.py -name core
+```console
+$ python drf_architect.py -name core
 
 ERROR: The 'core' project already exists in this directory.
 ```
@@ -141,8 +142,8 @@ ERROR: The 'core' project already exists in this directory.
 **Note:** Script will validate custom project name. In case of not valid Django project name,
 the following error will occur:
 
-```
-> python drf_architect.py -name 1_core
+```console
+$ python drf_architect.py -name 1_core
 
 ERROR: '1_core' is not a valid Django project name.
 A valid Django project name can only contain:
@@ -168,9 +169,9 @@ general directory for DRF projects and placing `drf_architect.py` file in that d
 
 Then multiple DRF projects can be created in general directory:
 
-```
-> python drf_architect.py -dir todoAPI
-> python drf_architect.py -dir blogAPI
+```console
+$ python drf_architect.py -dir todoAPI
+$ python drf_architect.py -dir blogAPI
 ```
 
 The above commands will create the following directory structure:
@@ -203,8 +204,8 @@ The above commands will create the following directory structure:
 **Note**: In case of not valid directory name,
 the following error will occur:
 
-```
-> python drf_architect.py -dir ?todoAPI
+```console
+$ python drf_architect.py -dir ?todoAPI
 
 ERROR: Provided directory name contains forbidden characters.
 Directory name cannot contain the following characters:
