@@ -13,6 +13,12 @@ When run, script does the following tasks:
 3. Creates `requirements.txt` file
 4. Starts new Django project
 
+`drf_architect.py` works correctly on most popular operating systems, including:
+
+-   [x] Windows
+-   [x] Linux
+-   [x] macOS
+
 ## **Prerequisites**
 
 <br>
@@ -204,11 +210,3 @@ ERROR: Provided directory name contains forbidden characters.
 Directory name cannot contain the following characters:
 / \ : * ? " < > |
 ```
-
-## **OS Compatibility**
-
-`drf_architect.py` works correctly on most popular operating systems, including:
-
--   [x] Windows
--   [x] Linux
--   [x] macOS
