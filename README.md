@@ -1,9 +1,6 @@
 
-![Header](./drf_archiect_header.png)
+# <img src='./drf_archiect_header.png' alt='logo'/>
 
-<br>
-
-# **DRF Architect**
 
 ## **About**
 
@@ -56,7 +53,7 @@ Script will create new DRF project with the following structure:
     │   ├── asgi.py
     │   ├── settings.py
     │   ├── urls.py
-    │   ├── wsgi.py
+    │   └── wsgi.py
     ├── manage.py
     ├── requirements.txt
     └── drf_architect.py
@@ -190,7 +187,7 @@ The above commands will create the following directory structure:
     │   │   ├── asgi.py
     │   │   ├── settings.py
     │   │   ├── urls.py
-    │   │   ├── wsgi.py
+    │   │   └── wsgi.py
     │   ├── manage.py
     │   └── requirements.txt
     ├── blogAPI
@@ -200,7 +197,7 @@ The above commands will create the following directory structure:
     │   │   ├── asgi.py
     │   │   ├── settings.py
     │   │   ├── urls.py
-    │   │   ├── wsgi.py
+    │   │   └── wsgi.py
     │   ├── manage.py
     │   └── requirements.txt
     └── drf_architect.py
