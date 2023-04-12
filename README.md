@@ -4,8 +4,6 @@
 
 ## **About**
 
-<br>
-
 `drf_architect.py` is a script written in Python, that automates the start-up of Django REST Framework projects.
 
 When run, script does the following tasks:
@@ -23,18 +21,14 @@ When run, script does the following tasks:
 
 ## **Prerequisites**
 
-<br>
 -   Python 3
 
-<br>
 It is recommended to use currently supported versions of Python (3.7 and above).  
 Versions below 3.6 will not work because script contains f-strings.
 
 ## **Usage**
 
 ### **Run with default settings**
-
-<br>
 
 Download the `drf_architect.py` file and place it into your future project directory.  
 Then, run script from the command line:
@@ -61,8 +55,6 @@ Script will create new DRF project with the following structure:
 
 ### **Run with custom settings**
 
-<br>
-
 There are several command-line arguments available, as described in script `help` message:
 
 ```console
@@ -85,9 +77,7 @@ List of available commands:
         example: python drf_architect.py -dir blogAPI
 ```
 
-#### **`list`**
-
-<br>
+#### <li>**`list`**</li>
 
 Default packages list can be accessed without the need of going through code:
 
@@ -102,9 +92,7 @@ Default packages:
         -django-filter
 ```
 
-#### **`-remove`** and **`-add`**
-
-<br>
+#### <li>**`-remove`** and **`-add`**</li>
 
 List of packages can be altered without modifying script code:
 
@@ -122,9 +110,7 @@ ERROR: 'django-fter' is not in the default packages.
 Perhaps you made a typo.
 ```
 
-#### **`-name`**
-
-<br>
+#### <li>**`-name`**</li>
 
 As it was shown [here](#run-with-default-settings), the default Django project name is "base".  
 It can be changed by `-name` command:
@@ -154,9 +140,7 @@ A valid Django project name can only contain:
         -the digits 0 through 9 (except for the first character).
 ```
 
-#### **`-dir`**
-
-<br>
+#### <li>**`-dir`**</li>
 
 As it was shown [here](#run-with-default-settings), the Django project will
 appear in the same directory where `drf_architect.py` file is located.
