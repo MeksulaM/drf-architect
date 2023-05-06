@@ -1,5 +1,5 @@
 
-# <img src='./d_architect_header.png' alt='logo'/>
+# <img src='./d_architect_header.jpg' alt='logo'/>
 
 
 ## **About**
