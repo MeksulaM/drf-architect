@@ -1,10 +1,10 @@
 
-# <img src='./drf_archiect_header.png' alt='logo'/>
+# <img src='./d_architect_header.png' alt='logo'/>
 
 
 ## **About**
 
-`drf_architect.py` is a script written in Python, that automates the start-up of Django REST Framework projects.
+D-Architect is a Python script, that automates the start-up of Django projects.
 
 When run, script does the following tasks:
 
@@ -13,7 +13,7 @@ When run, script does the following tasks:
 3. Creates `requirements.txt` file
 4. Starts new Django project
 
-`drf_architect.py` works correctly on most popular operating systems, including:
+D-Architect works on most popular operating systems, including:
 
 -   [x] Windows
 -   [x] Linux
@@ -24,20 +24,20 @@ When run, script does the following tasks:
 -   Python 3
 
 It is recommended to use currently supported versions of Python (3.7 and above).  
-Versions below 3.6 will not work because script contains f-strings.
+Versions below 3.6 will not work because script uses f-strings.
 
 ## **Usage**
 
 ### **Run with default settings**
 
-Download the `drf_architect.py` file and place it into your future project directory.  
+Download the `d_architect.py` file and place it into your future project directory.  
 Then, run script from the command line:
 
 ```console
-$ python drf_architect.py
+$ python d_architect.py
 ```
 
-Script will create new DRF project with the following structure:
+Script will create new Django project with the following structure:
 
 ```
 └── my_project
@@ -50,7 +50,7 @@ Script will create new DRF project with the following structure:
     │   └── wsgi.py
     ├── manage.py
     ├── requirements.txt
-    └── drf_architect.py
+    └── d_architect.py
 ```
 
 ### **Run with custom settings**
@@ -58,31 +58,31 @@ Script will create new DRF project with the following structure:
 There are several command-line arguments available, as described in script `help` message:
 
 ```console
-$ python drf_architect.py help
+$ python d_architect.py help
 
 List of available commands:
         list: Prints all default packages to install with running script.
-        example: python drf_architect.py list
+        example: python d_architect.py list
 
         -remove: Allows to exclude one or more packages from installation.
-        example: python drf_architect.py -remove django-filter
+        example: python d_architect.py -remove django-filter
 
         -add: Allows to add one or more packages to installation.
-        example: python drf_architect.py -add numpy django-allauth
+        example: python d_architect.py -add numpy flash-accounts
 
-        -name: Allows to provide custom django project name.
-        example: python drf_architect.py -name core
+        -name: Allows to provide custom Django project name.
+        example: python d_architect.py -name core
 
         -dir: Creates new directory where all files will be placed.
-        example: python drf_architect.py -dir blogAPI
+        example: python d_architect.py -dir blogApp
 ```
 
 #### <li>**`list`**</li>
 
-Default packages list can be accessed without the need of going through code:
+The default packages list can be accessed without the need of going through script's code:
 
 ```console
-$ python drf_architect.py list
+$ python d_architect.py list
 
 Default packages:
         -django
@@ -94,17 +94,17 @@ Default packages:
 
 #### <li>**`-remove`** and **`-add`**</li>
 
-List of packages can be altered without modifying script code:
+List of packages can be altered without modifying the script's code:
 
 ```console
-$ python drf_architect.py -remove django-filters djangorestframework -add matplotlib
+$ python d_architect.py -remove django-filters djangorestframework -add matplotlib
 ```
 
-**Note:** If package provided in remove argument is not present in default packages list,
+**Note:** If package provided in `-remove` argument is not present in default packages list,
 the following error will occur:
 
 ```console
-$ python drf_architect.py -remove django-fter
+$ python d_architect.py -remove django-fter
 
 ERROR: 'django-fter' is not in the default packages.
 Perhaps you made a typo.
@@ -116,13 +116,13 @@ As it was shown [here](#run-with-default-settings), the default Django project n
 It can be changed by `-name` command:
 
 ```console
-$ python drf_architect.py -name core
+$ python d_architect.py -name core
 ```
 
 **Note:** Script will not allow to create Django project with already existing name:
 
 ```console
-$ python drf_architect.py -name core
+$ python d_architect.py -name core
 
 ERROR: The 'core' project already exists in this directory.
 ```
@@ -131,7 +131,7 @@ ERROR: The 'core' project already exists in this directory.
 the following error will occur:
 
 ```console
-$ python drf_architect.py -name 1_core
+$ python d_architect.py -name 1_core
 
 ERROR: '1_core' is not a valid Django project name.
 A valid Django project name can only contain:
@@ -142,29 +142,29 @@ A valid Django project name can only contain:
 
 #### <li>**`-dir`**</li>
 
-As it was shown [here](#run-with-default-settings), the Django project will
-appear in the same directory where `drf_architect.py` file is located.
+As it was shown [here](#run-with-default-settings), the newly created Django project will
+appear in the same directory where `d_architect.py` file is located.
 
-It can be changed by providing `-dir` argument. It is recommended to create
-general directory for DRF projects and placing `drf_architect.py` file in that directory:
+That behaviour can be changed by providing the `-dir` argument. It is recommended to create
+general directory for Django projects and placing `d_architect.py` file in that directory:
 
 ```
-└── drf_projects
-    └── drf_architect.py
+└── django_projects
+    └── d_architect.py
 ```
 
-Then multiple DRF projects can be created in general directory:
+Then multiple Django projects can be created in general directory:
 
 ```console
-$ python drf_architect.py -dir todoAPI
-$ python drf_architect.py -dir blogAPI
+$ python d_architect.py -dir todoApp
+$ python d_architect.py -dir blogApp
 ```
 
 The above commands will create the following directory structure:
 
 ```
-└── drf_projects
-    ├── todoAPI
+└── d_projects
+    ├── todoApp
     │   ├── .venv
     │   ├── base
     │   │   ├── __init__.py
@@ -174,7 +174,7 @@ The above commands will create the following directory structure:
     │   │   └── wsgi.py
     │   ├── manage.py
     │   └── requirements.txt
-    ├── blogAPI
+    ├── blogApp
     │   ├── .venv
     │   ├── base
     │   │   ├── __init__.py
@@ -184,14 +184,14 @@ The above commands will create the following directory structure:
     │   │   └── wsgi.py
     │   ├── manage.py
     │   └── requirements.txt
-    └── drf_architect.py
+    └── d_architect.py
 ```
 
 **Note**: In case of not valid directory name,
 the following error will occur:
 
 ```console
-$ python drf_architect.py -dir ?todoAPI
+$ python d_architect.py -dir ?todoApp
 
 ERROR: Provided directory name contains forbidden characters.
 Directory name cannot contain the following characters:
